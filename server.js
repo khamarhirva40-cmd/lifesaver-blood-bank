@@ -4,14 +4,14 @@ const cors = require("cors");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/lifesaver_blood_bank")
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log("MongoDB connected successfully!");
     })
@@ -179,7 +179,7 @@ app.post("/api/requests", async (req, res) => {
 
 // ==================== START SERVER ====================
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
     console.log(`Server running at http://localhost:${PORT}`);
 
